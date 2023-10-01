@@ -8,6 +8,7 @@ package Functions;
  *
  * @author ernesto
  */
-public class KosarajuAlgorithm {
+public class KosarajuAlgorithm 
+{
     
 }
