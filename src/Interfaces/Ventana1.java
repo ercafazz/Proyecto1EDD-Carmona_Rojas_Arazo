@@ -34,7 +34,6 @@ public class Ventana1 extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         TÍTULO = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -58,9 +57,6 @@ public class Ventana1 extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("FUERTE CONECTIVIDAD ENTRE USUARIOS");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
-
-        jLabel2.setText("RECUERDE QUE DEBE SER UN ARCHIVO DE TEXTO");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jButton2.setText("INICIAR ESTUDIO");
@@ -98,11 +94,11 @@ public class Ventana1 extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser jFileChooser1 = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
-        jFileChooser1.setFileFilter(filter);
+        jFileChooser1.setFileFilter(filter);        
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
         int result = jFileChooser1.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            // El usuario ha seleccionado un archivo
-            System.out.println("Archivo seleccionado: " + jFileChooser1.getSelectedFile().getAbsolutePath());
+            File file = jFileChooser1.getSelectedFile();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -147,7 +143,6 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
