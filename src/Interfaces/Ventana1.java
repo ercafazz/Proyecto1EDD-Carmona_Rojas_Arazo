@@ -4,8 +4,14 @@
  */
 package Interfaces;
 
+import EDD.Graph;
+import EDD.Users;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -17,6 +23,8 @@ public class Ventana1 extends javax.swing.JFrame {
     /**
      * Creates new form Ventana1
      */
+    
+    private File file;
     public Ventana1() {
         initComponents();
     }
@@ -85,10 +93,56 @@ public class Ventana1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Ventana2 v = new Ventana2();
-        v.setLocationRelativeTo(null);
-        v.show();
-        this.dispose();
+        if (FileIsEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo primero");
+        }
+        else
+        {
+            Ventana2 v = new Ventana2();
+            v.setLocationRelativeTo(null);
+            v.show();
+            this.dispose();
+            String filePath = file.getAbsolutePath();
+            Graph graph = new Graph(0);
+            int vertices = graph.CalculateVertex(filePath);
+            graph.setVertices(vertices);
+            
+            System.out.println("Vertices: "+graph.getVertices());
+            try 
+            {
+            // Lee el archivo
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line;
+            boolean readingUsers = false;
+            while ((line = br.readLine()) != null) {
+                // Si encontramos la palabra "usuarios", empezamos a leer los nombres de usuario
+                if (line.equals("usuarios")) {
+                    readingUsers = true;
+                    continue;  // Saltamos esta línea para no imprimir "usuarios"
+                }
+
+                // Si encontramos la palabra "relaciones", terminamos de leer los nombres de usuario
+                if (line.equals("relaciones")) {
+                    readingUsers = false;
+                    break;  // Dejamos de leer
+                }
+
+                // Si estamos en la sección de usuarios, mostramos el nombre de usuario
+                if (readingUsers) {
+                    System.out.println(line);
+                    Users user = new Users(line);
+                    graph.AddUser(user);
+                }
+            }
+            
+
+            br.close();
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+            
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -98,10 +152,15 @@ public class Ventana1 extends javax.swing.JFrame {
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         int result = jFileChooser1.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
+            file = jFileChooser1.getSelectedFile();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
+    private boolean FileIsEmpty()
+    {
+        return file == null;
+    }
+    
     /**
      * @param args the command line arguments
      */
