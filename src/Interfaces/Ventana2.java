@@ -4,6 +4,8 @@
  */
 package Interfaces;
 
+import Functions.Global;
+
 /**
  *
  * @author ernesto
@@ -104,6 +106,9 @@ public class Ventana2 extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.show();
         this.dispose();
+        Global.setGraph(null);
+        Global.setFile(null);
+        Global.setList(null);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

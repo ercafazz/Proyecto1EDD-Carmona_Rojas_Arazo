@@ -1,5 +1,6 @@
 package Main;
 
+import EDD.DoubleLinkedList;
 import Interfaces.Ventana1;
 
 public class Main 
