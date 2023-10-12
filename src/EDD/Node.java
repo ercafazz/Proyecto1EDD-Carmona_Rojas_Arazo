@@ -2,20 +2,20 @@ package EDD;
 
 public class Node 
 {
-    String user;
-    Node next;
+    private String line;
+    private Node next;
 
-    public Node(String user) {
-        this.user = user;
+    public Node(String line) {
+        this.line = line;
         this.next = null;
     }
 
-    public String getUser() {
-        return user;
+    public String getLine() {
+        return line;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setLine(String line) {
+        this.line = line;
     }
 
     public Node getNext() {
@@ -25,4 +25,6 @@ public class Node
     public void setNext(Node next) {
         this.next = next;
     }
+    
+    
 }

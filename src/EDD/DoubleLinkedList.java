@@ -4,6 +4,8 @@
  */
 package EDD;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ernesto
@@ -80,7 +82,7 @@ public class DoubleLinkedList
         int n = getUserIndex(user);
         if (n!=-1)
         {
-            System.out.println("Ya existe este usuario");
+            JOptionPane.showMessageDialog(null, "Este usuario ya existe, intente de nuevo");
         }
         else
         {

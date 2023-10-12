@@ -76,4 +76,9 @@ public class Global
         return -1;
         }
     }
+    
+    public static DoubleLinkedList FileToDoubleList(File file)
+    {
+        return new DoubleLinkedList();
+    }
 }

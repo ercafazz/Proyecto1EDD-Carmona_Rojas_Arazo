@@ -126,14 +126,14 @@ public class Ventana1 extends javax.swing.JFrame {
                     if (readingUsers) 
                     {
                         //AÑADIMOS EL USUARIO A LA LISTA DOBLE
-                        doubleList.InsertUser(line);
+                        doubleList.InsertUser(line.replace(" ", ""));
                     }
                     if (!readingUsers)
                     {
                         //GUARDAMOS ORIGEN EN V1 Y DESTINO EN V2
                         String[] relation = line.split(",");
-                        String v1 = relation[0].trim();
-                        String v2 = relation[1].trim();
+                        String v1 = relation[0].trim().replace(" ", "");
+                        String v2 = relation[1].trim().replace(" ", "");
                         
                         //OBTENEMOS EL ÍNDICE DE CADA UNO EN LA LISTA DOBLE
                         int i = doubleList.getUserIndex(v1);

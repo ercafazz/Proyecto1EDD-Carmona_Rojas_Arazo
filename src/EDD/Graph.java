@@ -61,4 +61,18 @@ public class Graph
             System.out.println("");
         }
     }
+    
+    public void AddVertex()
+    {
+        boolean [][]newA = new boolean[this.getVertices()+1][this.getVertices()+1];
+        for (int i = 0; i < vertices; i++) 
+        {
+            for (int j = 0; j < vertices; j++) 
+            {
+                newA[i][j] = A[i][j];
+            }
+        }
+        setMatrix(newA);
+        vertices++;
+    }
 }

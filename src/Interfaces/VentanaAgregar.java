@@ -4,6 +4,20 @@
  */
 package Interfaces;
 
+import EDD.DoubleLinkedList;
+import EDD.LinkedList;
+import EDD.Node;
+import Functions.Global;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ernesto
@@ -59,10 +73,20 @@ public class VentanaAgregar extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 250, 50));
 
         jButton3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jButton3.setText("AGREGAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 160, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 620, 620));
@@ -80,6 +104,72 @@ public class VentanaAgregar extends javax.swing.JFrame {
         v.show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       String user = jTextField1.getText().replace(" ", "").toLowerCase();
+       if (user.isBlank() || user.startsWith("@"))
+       {
+           JOptionPane.showMessageDialog(null, "Usuario inválido");
+       }
+       else
+       {
+           user = "@"+user;
+           jTextField1.setText("");
+           int n = Global.getDoubleList().getUserIndex(user);
+           if (n!=-1)
+           {
+               JOptionPane.showMessageDialog(null, "Este nombre ya existe, intente otro");
+           }
+           else
+           {
+               //ALGORITMO PARA ESCRIBIR EL USUARIO EN EL ARCHIVO DE TEXTO
+               String filePath = Global.getFile().getAbsolutePath();
+               try 
+               {
+                   LinkedList fileList = new LinkedList();
+                   BufferedReader br = new BufferedReader(new FileReader(filePath));
+                   String line;
+                   //ALGORITMO QUE GUARDA EL ARCHIVO EN UNA LISTA SIMPLE
+                   while ((line = br.readLine()) != null)
+                   {
+                       fileList.InsertAtEnd(line);
+                   }
+                   br.close();
+                   
+                   //ALGORITMO QUE GUARDA EL NUEVO USUARIO ANTES DE LA PALABRA RELACIONES
+                   fileList.InsertBeforeRelations(user);
+                   //ALGORITMO QUE REESCRIBE EL ARCHIVO DE TEXTO
+                   FileWriter clearFile = new FileWriter(filePath, false);
+                   clearFile.write("");
+                   clearFile.close();
+                   BufferedWriter bw = new BufferedWriter(new FileWriter (filePath, true));
+                   Node pointer = fileList.getHead();
+                   while (pointer!=null)
+                   {
+                        bw.write(pointer.getLine());
+                        bw.newLine();
+                        pointer = pointer.getNext();
+                   }
+                   bw.close();
+               } 
+               catch (FileNotFoundException ex) 
+               {
+                   Logger.getLogger(VentanaAgregar.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (IOException ex) {
+                   Logger.getLogger(VentanaAgregar.class.getName()).log(Level.SEVERE, null, ex);
+               }
+               
+               //ALGORITMO PARA GUARDAR EL USUARIO EN LA LISTA DOBLE
+               Global.getDoubleList().InsertUser(user);
+               //ALGORITMO PARA GUARDAR EL USUARIO EN EL GRAFO
+               Global.getGraph().AddVertex();
+               JOptionPane.showMessageDialog(null, "El usuario se ha agregado exitosamente");
+           }
+       }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

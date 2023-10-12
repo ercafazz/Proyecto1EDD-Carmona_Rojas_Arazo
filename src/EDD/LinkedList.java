@@ -28,12 +28,12 @@ public class LinkedList
     
     public boolean isEmpty()
     {
-        return getHead()==null;
+        return getHead() == null;
     }
     
-    public void InsertUser(String user)
+    public void InsertAtEnd (String line)
     {
-        Node node = new Node(user);
+        Node node = new Node (line);
         if (isEmpty())
         {
             setHead(node);
@@ -43,10 +43,34 @@ public class LinkedList
             Node pointer = getHead();
             while (pointer.getNext()!=null)
             {
-                pointer = pointer.getNext();
+                pointer=pointer.getNext();
             }
             pointer.setNext(node);
         }
         size++;
     }
+    
+    public void Show()
+    {
+        Node pointer = getHead();
+        while (pointer!=null)
+        {
+            System.out.println(pointer.getLine()+" ");
+            pointer = pointer.getNext();
+        }
+    }
+    
+    public void InsertBeforeRelations (String user)
+    {
+        Node node = new Node(user);
+        Node pointer = getHead();
+        while (!pointer.getNext().getLine().equals("relaciones"))
+        {
+            pointer = pointer.getNext();
+        }
+        node.setNext(pointer.getNext());
+        pointer.setNext(node);
+        size++;
+    }
+    
 }
