@@ -177,6 +177,7 @@ public class VentanaEliminar extends javax.swing.JFrame {
                 getComboBox().addItem(u);
                 cont++;
             }
+            
             JOptionPane.showMessageDialog(null, user+" ha sido eliminado");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
