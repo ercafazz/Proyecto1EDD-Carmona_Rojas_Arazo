@@ -4,6 +4,10 @@
  */
 package EDD;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -226,4 +230,20 @@ public class DoubleLinkedList
         return null;
     }
     
+    public void InsertAtEnd(String line)
+    {
+        DoubleNode node = new DoubleNode(line);
+        if (isEmpty())
+        {
+            setHead(node);
+            setTail(node);
+        }
+        else
+        {
+            getTail().setNext(node);
+            node.setPrev(getTail());
+            setTail(node);
+        }
+        size++;
+    }
 }

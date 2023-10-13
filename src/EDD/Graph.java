@@ -4,6 +4,7 @@
  */
 package EDD;
 
+import Functions.Global;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -87,4 +88,50 @@ public class Graph
             return false;
         }
     }
+    
+    public void Delete(int index)
+    {
+        boolean [][] newA = new boolean[this.vertices-1][this.vertices-1];
+        if (index==vertices-1)
+        {
+            for (int i = 0; i < vertices-1; i++) 
+            {
+                for (int j = 0; j < vertices-1; j++) 
+                {
+                    newA[i][j] = A[i][j];
+                }
+            }
+        }
+        else
+        {
+            //ELIMINAMOS FILA ASOCIADA
+            for (int i = index; i < vertices-1; i++) 
+            {
+                for (int j = 0; j < vertices; j++) 
+                {
+                    A[i][j] = A[i + 1][j];
+                }
+            }
+            //ELIMINAMOS COLUMNA ASOCIADA
+            for (int i = 0; i < vertices; i++) 
+            {
+                for (int j = index; j < vertices-1; j++) 
+                {
+                    A[i][j] = A[i][j+1];
+                }
+            }
+            //CREAMOS LA NUEVA MATRIZ
+            for (int i = 0; i < vertices-1; i++) 
+            {
+                for (int j = 0; j < vertices-1; j++) 
+                {
+                    newA[i][j] = A[i][j];
+                }
+            }
+        }
+        //SET DE LA NUEVA MATRIZ
+        Global.getGraph().setMatrix(newA);
+        vertices--;
+    }
+    
 }

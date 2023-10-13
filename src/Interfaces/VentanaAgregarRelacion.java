@@ -173,7 +173,7 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
                     String message1 = name1;
                     String message2 = name2;
                     
-                    JOptionPane.showMessageDialog(null, "Relación agregada\n"+message1+" - "+message2);
+                    JOptionPane.showMessageDialog(null, "Arista agregada\n"+message1+" -> "+message2);
                 }
                 
             }

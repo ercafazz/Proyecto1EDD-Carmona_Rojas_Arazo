@@ -150,7 +150,6 @@ public class Ventana1 extends javax.swing.JFrame {
                 Global.setList(doubleList);
                 //SETEAMOS NUEVO GRAFO
                 Global.setGraph(graph);
-                Global.getGraph().Show();
                 br.close();
             } 
             catch (IOException e) 

@@ -4,6 +4,22 @@
  */
 package Interfaces;
 
+import EDD.DoubleLinkedList;
+import EDD.Graph;
+import EDD.LinkedList;
+import EDD.Node;
+import Functions.Global;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ernesto
@@ -13,6 +29,12 @@ public class VentanaEliminar extends javax.swing.JFrame {
     /**
      * Creates new form VentanaEliminar
      */
+    
+    
+    public JComboBox<String> getComboBox() {
+        return comboBox;
+    }
+
     public VentanaEliminar() {
         initComponents();
     }
@@ -30,8 +52,8 @@ public class VentanaEliminar extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        comboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,12 +80,23 @@ public class VentanaEliminar extends javax.swing.JFrame {
         jLabel1.setText("NOMBRE DE USUARIO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 250, 50));
-
         jButton3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jButton3.setText("ELIMINAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 160, 50));
+
+        comboBox.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 250, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 620, 620));
 
@@ -80,6 +113,77 @@ public class VentanaEliminar extends javax.swing.JFrame {
         v.show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String user = (String) comboBox.getSelectedItem();
+        comboBox.setSelectedIndex(0);
+        if (user.equals("Desplegar lista"))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario");
+        }
+        else
+        {
+            int index = Global.getDoubleList().getUserIndex(user);
+            //BORRAR EL USUARIO DE LA LISTA DOBLE
+            Global.getDoubleList().DeleteUser(user);
+            //BORRAR EL ÍNDICE DEL GRAFO
+            Global.getGraph().Delete(index);
+            //REESCRIBIR EL ARCHIVO DE TEXTO
+            String filePath = Global.getFile().getAbsolutePath();
+            try
+            {
+                LinkedList fileList = new LinkedList();
+                BufferedReader br = new BufferedReader(new FileReader(filePath));
+                String line;
+                //ALGORITMO QUE GUARDA EL ARCHIVO EN UNA LISTA SIMPLE
+                while ((line = br.readLine()) != null)
+                {
+                  fileList.InsertAtEnd(line);
+                }
+                br.close();
+                
+                //ALGORITMO QUE ELIMINA EL USUARIO SELECCIONADO
+                //TAMBIÉN ELIMINA LAS LÍNEAS DONDE ESTÁ DICHO USUARIO
+                fileList = fileList.CleanList(user);
+                
+                //ALGORITMO QUE REESCRIBE EL ARCHIVO DE TEXTO
+                FileWriter clearFile = new FileWriter(filePath, false);
+                clearFile.write("");
+                clearFile.close();
+                BufferedWriter bw = new BufferedWriter(new FileWriter (filePath, true));
+                Node pointer = fileList.getHead();
+                while (pointer!=null)
+                {
+                    bw.write(pointer.getLine());
+                    bw.newLine();
+                    pointer = pointer.getNext();
+                }
+                bw.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(VentanaEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //MOSTRAR JOPTION PANE DE USUARIO ELIMINADO
+            getComboBox().removeAllItems();
+            //PREPARAMOS LA COMBO BOX
+            DoubleLinkedList usersList = Global.getDoubleList();
+            int size = usersList.getSize();
+            int cont = 0;
+            getComboBox().addItem("Desplegar lista");
+            while (cont!=size)
+            {
+                String u = usersList.returnName(cont);
+                getComboBox().addItem(u);
+                cont++;
+            }
+            JOptionPane.showMessageDialog(null, user+" ha sido eliminado");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,11 +221,11 @@ public class VentanaEliminar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

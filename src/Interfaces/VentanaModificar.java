@@ -35,7 +35,6 @@ public class VentanaModificar extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -84,9 +83,6 @@ public class VentanaModificar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 280, 50));
-
-        jButton6.setText("GUARDAR CAMBIOS");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 620, 620));
 
@@ -142,9 +138,22 @@ public class VentanaModificar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        VentanaEliminar v = new VentanaEliminar();
-        v.setLocationRelativeTo(null);
-        v.show();
+        VentanaEliminar ventana = new VentanaEliminar();
+        ventana.setLocationRelativeTo(null);
+        
+        ventana.getComboBox().removeAllItems();
+        //PREPARAMOS LA COMBO BOX
+        DoubleLinkedList usersList = Global.getDoubleList();
+        int size = usersList.getSize();
+        int cont = 0;
+        ventana.getComboBox().addItem("Desplegar lista");
+        while (cont!=size)
+        {
+            String user = usersList.returnName(cont);
+            ventana.getComboBox().addItem(user);
+            cont++;
+        }
+        ventana.show();
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -189,7 +198,6 @@ public class VentanaModificar extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

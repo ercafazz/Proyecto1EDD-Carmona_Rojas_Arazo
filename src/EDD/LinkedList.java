@@ -1,5 +1,7 @@
 package EDD;
 
+import javax.swing.JOptionPane;
+
 public class LinkedList 
 {
     private Node head;
@@ -55,7 +57,7 @@ public class LinkedList
         Node pointer = getHead();
         while (pointer!=null)
         {
-            System.out.println(" ["+pointer.getLine()+"] ");
+            System.out.println("Nodo: ["+pointer.getLine()+"] ");
             pointer = pointer.getNext();
         }
     }
@@ -73,4 +75,22 @@ public class LinkedList
         size++;
     }
     
+    public LinkedList CleanList(String user)
+    {
+        LinkedList l = new LinkedList();
+        Node pointer = getHead();
+        while (pointer!=null)
+        {
+            if (pointer.getLine().contains(user))
+            {
+                
+            }
+            else
+            {
+                l.InsertAtEnd(pointer.getLine());
+            }
+            pointer = pointer.getNext();
+        }
+        return l;
+    }
 }
