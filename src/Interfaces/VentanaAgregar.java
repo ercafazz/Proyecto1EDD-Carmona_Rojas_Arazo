@@ -5,6 +5,7 @@
 package Interfaces;
 
 import EDD.DoubleLinkedList;
+import EDD.Graph;
 import EDD.LinkedList;
 import EDD.Node;
 import Functions.Global;
@@ -107,6 +108,8 @@ public class VentanaAgregar extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        String user = jTextField1.getText().replace(" ", "").toLowerCase();
+       DoubleLinkedList list = Global.getDoubleList();
+       Graph graph = Global.getGraph();
        if (user.isBlank() || user.startsWith("@"))
        {
            JOptionPane.showMessageDialog(null, "Usuario inválido");
@@ -160,10 +163,12 @@ public class VentanaAgregar extends javax.swing.JFrame {
                }
                
                //ALGORITMO PARA GUARDAR EL USUARIO EN LA LISTA DOBLE
-               Global.getDoubleList().InsertUser(user);
+               list.InsertUser(user);
+               Global.setList(list);
                //ALGORITMO PARA GUARDAR EL USUARIO EN EL GRAFO
-               Global.getGraph().AddVertex();
-               JOptionPane.showMessageDialog(null, "El usuario se ha agregado exitosamente");
+               graph.AddVertex();
+               Global.setGraph(graph);
+               JOptionPane.showMessageDialog(null, "Agregaste a "+user+" exitosamente");
            }
        }
     }//GEN-LAST:event_jButton3ActionPerformed

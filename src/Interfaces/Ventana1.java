@@ -5,8 +5,12 @@ import EDD.DoubleLinkedList;
 import EDD.Graph;
 import Functions.Global;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -153,7 +157,8 @@ public class Ventana1 extends javax.swing.JFrame {
             {
             System.err.println("Error al leer el archivo: " + e.getMessage());
             }
-        }
+            
+        }   
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

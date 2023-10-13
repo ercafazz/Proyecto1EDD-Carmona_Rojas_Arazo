@@ -2,6 +2,7 @@ package Functions;
 
 import EDD.DoubleLinkedList;
 import EDD.Graph;
+import EDD.LinkedList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -77,8 +78,4 @@ public class Global
         }
     }
     
-    public static DoubleLinkedList FileToDoubleList(File file)
-    {
-        return new DoubleLinkedList();
-    }
 }

@@ -4,18 +4,34 @@
  */
 package Interfaces;
 
+import EDD.DoubleLinkedList;
+import Functions.Global;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ernesto
  */
 public class VentanaAgregarRelacion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaAgregarRelacion
-     */
+    public JComboBox<String> getjComboBox1() {
+        return jComboBox1;
+    }
+
+    public JComboBox<String> getjComboBox3() {
+        return jComboBox3;
+    }
+
     public VentanaAgregarRelacion() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,10 +46,10 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -60,19 +76,36 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
         jLabel1.setText("USUARIO DE ORIGEN");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 250, 50));
-
         jButton3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jButton3.setText("AGREGAR USUARIO");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 270, 50));
+        jButton3.setText("AGREGAR RELACIÓN");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 310, 50));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel2.setText("USUARIO DESTINO");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 250, 50));
+        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 210, 40));
+
+        jComboBox3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 210, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 620, 620));
 
@@ -89,6 +122,69 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
         v.show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String origin = (String) jComboBox1.getSelectedItem();
+        String end = (String) jComboBox3.getSelectedItem();
+        jComboBox1.setSelectedIndex(0);
+        jComboBox3.setSelectedIndex(0);
+        
+        if (origin.equals("Desplegar lista") || (end.equals("Desplegar lista")))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el origen\ny destino de la nueva arista");
+        }
+        else
+        {
+            if (origin.equals(end))
+            {
+                JOptionPane.showMessageDialog(null, "El grafo no puede\ncontener bucles");
+            }
+            else
+            {
+                int user1 = Global.getDoubleList().getUserIndex(origin);
+                int user2 = Global.getDoubleList().getUserIndex(end);
+                
+                boolean exist = Global.getGraph().FindRelation(user1, user2);
+                if (exist)
+                {
+                    JOptionPane.showMessageDialog(null, "Ya existe esta arista");
+                }
+                else
+                {
+                    //AGREGAMOS LA ARISTA EN EL ARCHIVO DE TEXTO
+                    String line = origin + ", " + end;
+                    String filepath = Global.getFile().getAbsolutePath();
+                    
+                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) 
+                    {
+                        bw.write(line);
+                        bw.newLine();
+                    } 
+                    catch (IOException ex) {
+                        Logger.getLogger(VentanaAgregarRelacion.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    //AGREGAMOS LA ARISTA EN EL GRAFO
+                    Global.getGraph().AddRelation(user1, user2);
+                    
+                    String name1 = Global.getDoubleList().returnName(user1);
+                    String name2 = Global.getDoubleList().returnName(user2);
+                    
+                    String message1 = name1;
+                    String message2 = name2;
+                    
+                    JOptionPane.showMessageDialog(null, "Relación agregada\n"+message1+" - "+message2);
+                }
+                
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,10 +225,10 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

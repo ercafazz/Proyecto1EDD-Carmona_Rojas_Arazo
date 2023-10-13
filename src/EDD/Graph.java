@@ -75,4 +75,16 @@ public class Graph
         setMatrix(newA);
         vertices++;
     }
+
+    public boolean FindRelation(int user1, int user2) 
+    {
+        if (A[user1][user2] == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

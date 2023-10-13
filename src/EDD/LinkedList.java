@@ -55,7 +55,7 @@ public class LinkedList
         Node pointer = getHead();
         while (pointer!=null)
         {
-            System.out.println(pointer.getLine()+" ");
+            System.out.println(" ["+pointer.getLine()+"] ");
             pointer = pointer.getNext();
         }
     }

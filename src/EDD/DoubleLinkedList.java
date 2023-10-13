@@ -211,4 +211,19 @@ public class DoubleLinkedList
     {
         return this.getSize();
     }
+    
+    public String returnName(int index)
+    {
+        DoubleNode pointer = getHead();
+        while (pointer!=null)
+        {
+            if (pointer.getIndex()==index)
+            {
+                return pointer.getUser();
+            }
+            pointer = pointer.getNext();
+        }
+        return null;
+    }
+    
 }

@@ -4,6 +4,9 @@
  */
 package Interfaces;
 
+import EDD.DoubleLinkedList;
+import Functions.Global;
+
 /**
  *
  * @author ernesto
@@ -111,6 +114,29 @@ public class VentanaModificar extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         VentanaAgregarRelacion v = new VentanaAgregarRelacion();
         v.setLocationRelativeTo(null);
+        v.getjComboBox1().removeAllItems();
+        v.getjComboBox3().removeAllItems();
+        
+        ///PREPARAMOS LA COMBO BOX 1
+        DoubleLinkedList usersList = Global.getDoubleList();
+        int size = usersList.getSize();
+        int cont = 0;
+        v.getjComboBox1().addItem("Desplegar lista");
+        while (cont!=size)
+        {
+            String user = usersList.returnName(cont);
+            v.getjComboBox1().addItem(user);
+            cont++;
+        }
+        //PREPARAMOS LA COMBO BOX 3
+        cont = 0;
+        v.getjComboBox3().addItem("Desplegar lista");
+        while (cont!=size)
+        {
+            String user = usersList.returnName(cont);
+            v.getjComboBox3().addItem(user);
+            cont++;
+        }
         v.show();
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
