@@ -1,11 +1,11 @@
 package EDD;
 
-public class Node 
+public class LinkedListNode 
 {
     private String line;
-    private Node next;
+    private LinkedListNode next;
 
-    public Node(String line) {
+    public LinkedListNode(String line) {
         this.line = line;
         this.next = null;
     }
@@ -18,13 +18,11 @@ public class Node
         this.line = line;
     }
 
-    public Node getNext() {
+    public LinkedListNode getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(LinkedListNode next) {
         this.next = next;
     }
-    
-    
 }

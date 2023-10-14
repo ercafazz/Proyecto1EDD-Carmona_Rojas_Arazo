@@ -1,10 +1,9 @@
 package EDD;
 
-import javax.swing.JOptionPane;
 
 public class LinkedList 
 {
-    private Node head;
+    private LinkedListNode head;
     private int size;
 
     public LinkedList() {
@@ -12,11 +11,11 @@ public class LinkedList
         this.size = 0;
     }
 
-    public Node getHead() {
+    public LinkedListNode getHead() {
         return head;
     }
 
-    public void setHead(Node head) {
+    public void setHead(LinkedListNode head) {
         this.head = head;
     }
 
@@ -35,14 +34,14 @@ public class LinkedList
     
     public void InsertAtEnd (String line)
     {
-        Node node = new Node (line);
+        LinkedListNode node = new LinkedListNode (line);
         if (isEmpty())
         {
             setHead(node);
         }
         else
         {
-            Node pointer = getHead();
+            LinkedListNode pointer = getHead();
             while (pointer.getNext()!=null)
             {
                 pointer=pointer.getNext();
@@ -54,7 +53,7 @@ public class LinkedList
     
     public void Show()
     {
-        Node pointer = getHead();
+        LinkedListNode pointer = getHead();
         while (pointer!=null)
         {
             System.out.println("Nodo: ["+pointer.getLine()+"] ");
@@ -64,8 +63,8 @@ public class LinkedList
     
     public void InsertBeforeRelations (String user)
     {
-        Node node = new Node(user);
-        Node pointer = getHead();
+        LinkedListNode node = new LinkedListNode(user);
+        LinkedListNode pointer = getHead();
         while (!pointer.getNext().getLine().equals("relaciones"))
         {
             pointer = pointer.getNext();
@@ -78,7 +77,7 @@ public class LinkedList
     public LinkedList CleanList(String user)
     {
         LinkedList l = new LinkedList();
-        Node pointer = getHead();
+        LinkedListNode pointer = getHead();
         while (pointer!=null)
         {
             if (pointer.getLine().contains(user))

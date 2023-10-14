@@ -4,7 +4,12 @@
  */
 package Interfaces;
 
+import EDD.AdjacencyMatrix;
+import EDD.DoubleLinkedList;
 import Functions.Global;
+import org.graphstream.graph.Graph;
+import org.graphstream.ui.view.Viewer;
+
 
 /**
  *
@@ -85,6 +90,7 @@ public class Ventana2 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -95,10 +101,18 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        VentanaVerGrafo v = new VentanaVerGrafo();
-        v.setLocationRelativeTo(null);
-        v.show();
-        this.dispose();
+        
+        //ALGORITMO PARA AGREGAR NODOS AL GRAFO
+        DoubleLinkedList list = Global.getDoubleList();
+        Graph graph = list.addItems();
+        
+        //ALGORITMO PARA AGREGAR ARISTAS AL GRAFO
+        AdjacencyMatrix adjMatrix = Global.getAdjMatrix();
+        graph = adjMatrix.addVertexTo(graph);
+        
+        //MOSTRAMOS EL GRADO
+        Viewer viewer = graph.display();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -106,7 +120,7 @@ public class Ventana2 extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.show();
         this.dispose();
-        Global.setGraph(null);
+        Global.setAdjMatrix(null);
         Global.setFile(null);
         Global.setList(null);
     }//GEN-LAST:event_jButton4ActionPerformed

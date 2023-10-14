@@ -4,11 +4,10 @@
  */
 package EDD;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.graphstream.graph.*;
 import javax.swing.JOptionPane;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 
 /**
  *
@@ -211,7 +210,7 @@ public class DoubleLinkedList
         }
     }
     
-    public int CalculateGraphVertex()
+    public int CalculateMatrixVertex()
     {
         return this.getSize();
     }
@@ -245,5 +244,24 @@ public class DoubleLinkedList
             setTail(node);
         }
         size++;
+    }
+
+    public Graph addItems() 
+    {
+        System.setProperty("org.graphstream.ui", "swing");
+        Graph graph = new SingleGraph("Graph");
+        String stylesheet = "node { z-index: 1; text-mode: normal; text-alignment: center; text-background-mode: none; text-size: 15; size: 60px; fill-mode: dyn-plain; text-color: white; } edge { z-index: 0; arrow-shape: arrow; fill-mode: dyn-plain; }";
+        graph.setAttribute("ui.stylesheet", stylesheet);
+
+        DoubleNode pointer = getHead();
+        while (pointer!=null)
+        {
+            String index = String.valueOf(pointer.getIndex());
+            Node node = graph.addNode(index);
+            String name = pointer.getUser();
+            node.setAttribute("ui.label", name);
+            pointer = pointer.getNext();
+        }
+        return graph;
     }
 }

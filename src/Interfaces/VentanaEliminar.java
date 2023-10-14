@@ -5,9 +5,8 @@
 package Interfaces;
 
 import EDD.DoubleLinkedList;
-import EDD.Graph;
 import EDD.LinkedList;
-import EDD.Node;
+import EDD.LinkedListNode;
 import Functions.Global;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -105,6 +104,7 @@ public class VentanaEliminar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -126,8 +126,8 @@ public class VentanaEliminar extends javax.swing.JFrame {
             int index = Global.getDoubleList().getUserIndex(user);
             //BORRAR EL USUARIO DE LA LISTA DOBLE
             Global.getDoubleList().DeleteUser(user);
-            //BORRAR EL ÍNDICE DEL GRAFO
-            Global.getGraph().Delete(index);
+            //BORRAR EL ÍNDICE DE LA MATRIZ
+            Global.getAdjMatrix().Delete(index);
             //REESCRIBIR EL ARCHIVO DE TEXTO
             String filePath = Global.getFile().getAbsolutePath();
             try
@@ -151,7 +151,7 @@ public class VentanaEliminar extends javax.swing.JFrame {
                 clearFile.write("");
                 clearFile.close();
                 BufferedWriter bw = new BufferedWriter(new FileWriter (filePath, true));
-                Node pointer = fileList.getHead();
+                LinkedListNode pointer = fileList.getHead();
                 while (pointer!=null)
                 {
                     bw.write(pointer.getLine());

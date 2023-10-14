@@ -1,8 +1,7 @@
 package Functions;
 
 import EDD.DoubleLinkedList;
-import EDD.Graph;
-import EDD.LinkedList;
+import EDD.AdjacencyMatrix;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +11,7 @@ public class Global
 {
     private static DoubleLinkedList doubleList;
     private static File file;
-    private static Graph graph;
+    private static AdjacencyMatrix adjMatrix;
     
 
     public static DoubleLinkedList getDoubleList() {
@@ -31,12 +30,12 @@ public class Global
         Global.file = file;
     }
 
-    public static Graph getGraph() {
-        return graph;
+    public static AdjacencyMatrix getAdjMatrix() {
+        return adjMatrix;
     }
 
-    public static void setGraph(Graph graph) {
-        Global.graph = graph;
+    public static void setAdjMatrix(AdjacencyMatrix adjMatrix) {
+        Global.adjMatrix = adjMatrix;
     }
     
     public static int CalculateVertex(String filePath)
@@ -62,7 +61,7 @@ public class Global
                     readingUsers = false;
                     continue;
                 }
-                // Si estamos en la sección de usuarios creamos el nuevo objeto y lo añadimos al grafo
+                // Si estamos en la sección de usuarios creamos el nuevo objeto y lo añadimos a la matriz
                 if (readingUsers) 
                 {
                     //AÑADIMOS EL USUARIO A LA LISTA DOBLE

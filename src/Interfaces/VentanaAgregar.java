@@ -5,9 +5,9 @@
 package Interfaces;
 
 import EDD.DoubleLinkedList;
-import EDD.Graph;
+import EDD.AdjacencyMatrix;
 import EDD.LinkedList;
-import EDD.Node;
+import EDD.LinkedListNode;
 import Functions.Global;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -97,6 +97,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -109,7 +110,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        String user = jTextField1.getText().replace(" ", "").toLowerCase();
        DoubleLinkedList list = Global.getDoubleList();
-       Graph graph = Global.getGraph();
+       AdjacencyMatrix adjMatrix = Global.getAdjMatrix();
        if (user.isBlank() || user.startsWith("@"))
        {
            JOptionPane.showMessageDialog(null, "Usuario inválido");
@@ -146,7 +147,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
                    clearFile.write("");
                    clearFile.close();
                    BufferedWriter bw = new BufferedWriter(new FileWriter (filePath, true));
-                   Node pointer = fileList.getHead();
+                   LinkedListNode pointer = fileList.getHead();
                    while (pointer!=null)
                    {
                         bw.write(pointer.getLine());
@@ -165,9 +166,9 @@ public class VentanaAgregar extends javax.swing.JFrame {
                //ALGORITMO PARA GUARDAR EL USUARIO EN LA LISTA DOBLE
                list.InsertUser(user);
                Global.setList(list);
-               //ALGORITMO PARA GUARDAR EL USUARIO EN EL GRAFO
-               graph.AddVertex();
-               Global.setGraph(graph);
+               //ALGORITMO PARA GUARDAR EL USUARIO EN LA MATRIZ
+               adjMatrix.AddVertex();
+               Global.setAdjMatrix(adjMatrix);
                JOptionPane.showMessageDialog(null, "Agregaste a "+user+" exitosamente");
            }
        }

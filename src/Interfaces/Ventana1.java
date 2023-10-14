@@ -2,15 +2,11 @@
 package Interfaces;
 
 import EDD.DoubleLinkedList;
-import EDD.Graph;
+import EDD.AdjacencyMatrix;
 import Functions.Global;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -83,6 +79,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -103,7 +100,7 @@ public class Ventana1 extends javax.swing.JFrame {
             //GUARDAMOS EN FILEPATH EL CONTENIDO DEL ARCHIVO
             String filePath = Global.getFile().getAbsolutePath();
             int vertex = Global.CalculateVertex(filePath);
-            Graph graph = new Graph(vertex);
+            AdjacencyMatrix adjMatrix = new AdjacencyMatrix(vertex);
             //LEEMOS EL ARCHIVO CON BUFFERREADER
             try 
             {
@@ -126,7 +123,7 @@ public class Ventana1 extends javax.swing.JFrame {
                         readingUsers = false;
                         continue;
                     }
-                    // Si estamos en la sección de usuarios creamos el nuevo objeto y lo añadimos al grafo
+                    // Si estamos en la sección de usuarios creamos el nuevo objeto y lo añadimos a la matriz
                     if (readingUsers) 
                     {
                         //AÑADIMOS EL USUARIO A LA LISTA DOBLE
@@ -142,14 +139,14 @@ public class Ventana1 extends javax.swing.JFrame {
                         //OBTENEMOS EL ÍNDICE DE CADA UNO EN LA LISTA DOBLE
                         int i = doubleList.getUserIndex(v1);
                         int j = doubleList.getUserIndex(v2);
-                        //AÑADIMOS LA ARISTA AL GRAFO
-                        graph.AddRelation(i, j);
+                        //AÑADIMOS LA ARISTA A LA MATRIZ
+                        adjMatrix.AddRelation(i, j);
                     }
                 }
                 //SETEAMOS NUEVA LISTA DOBLE
                 Global.setList(doubleList);
-                //SETEAMOS NUEVO GRAFO
-                Global.setGraph(graph);
+                //SETEAMOS NUEVA MATRIZ
+                Global.setAdjMatrix(adjMatrix);
                 br.close();
             } 
             catch (IOException e) 

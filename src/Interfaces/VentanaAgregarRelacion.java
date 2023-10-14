@@ -4,7 +4,6 @@
  */
 package Interfaces;
 
-import EDD.DoubleLinkedList;
 import Functions.Global;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -114,6 +113,7 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -144,7 +144,7 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
                 int user1 = Global.getDoubleList().getUserIndex(origin);
                 int user2 = Global.getDoubleList().getUserIndex(end);
                 
-                boolean exist = Global.getGraph().FindRelation(user1, user2);
+                boolean exist = Global.getAdjMatrix().FindRelation(user1, user2);
                 if (exist)
                 {
                     JOptionPane.showMessageDialog(null, "Ya existe esta arista");
@@ -164,8 +164,8 @@ public class VentanaAgregarRelacion extends javax.swing.JFrame {
                         Logger.getLogger(VentanaAgregarRelacion.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    //AGREGAMOS LA ARISTA EN EL GRAFO
-                    Global.getGraph().AddRelation(user1, user2);
+                    //AGREGAMOS LA ARISTA EN LA MATRIZ
+                    Global.getAdjMatrix().AddRelation(user1, user2);
                     
                     String name1 = Global.getDoubleList().returnName(user1);
                     String name2 = Global.getDoubleList().returnName(user2);

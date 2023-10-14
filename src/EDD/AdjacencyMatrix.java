@@ -4,21 +4,22 @@
  */
 package EDD;
 
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.SingleGraph;
+
 import Functions.Global;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ernesto
  */
-public class Graph 
+public class AdjacencyMatrix 
 {
     private int vertices;
     private boolean [][] A;
 
-    public Graph(int vertices) {
+    public AdjacencyMatrix(int vertices) {
         this.vertices = vertices;
         this.A = new boolean[vertices][vertices];
     }
@@ -46,7 +47,7 @@ public class Graph
             A[i][j] = true;
         } else 
         {
-            System.out.println("ÍNDICE INVÁLIDO");
+            JOptionPane.showMessageDialog(null, "Estás intentando accedeer a un\níndice inválido en la matriz");
         }
     }
     
@@ -130,8 +131,26 @@ public class Graph
             }
         }
         //SET DE LA NUEVA MATRIZ
-        Global.getGraph().setMatrix(newA);
+        Global.getAdjMatrix().setMatrix(newA);
         vertices--;
     }
     
+    public Graph addVertexTo(Graph graph)
+    {
+        int id = 0;
+        for (int i = 0; i < vertices; i++) 
+        {
+            for (int j = 0; j < vertices; j++) 
+            {
+                if (A[i][j] == true)
+                {
+                    String origin = String.valueOf(i);
+                    String end = String.valueOf(j);
+                    graph.addEdge(String.valueOf(id), origin, end, true);
+                    id+=1;
+                }
+            }
+        }
+        return graph;
+    }
 }
