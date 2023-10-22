@@ -150,7 +150,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
                    LinkedListNode pointer = fileList.getHead();
                    while (pointer!=null)
                    {
-                        bw.write(pointer.getLine());
+                        bw.write(pointer.getData().toString());
                         bw.newLine();
                         pointer = pointer.getNext();
                    }

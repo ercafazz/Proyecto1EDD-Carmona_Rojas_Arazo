@@ -2,20 +2,20 @@ package EDD;
 
 public class LinkedListNode 
 {
-    private String line;
+    private Object data;
     private LinkedListNode next;
 
-    public LinkedListNode(String line) {
-        this.line = line;
+    public LinkedListNode(Object data) {
+        this.data = data;
         this.next = null;
     }
 
-    public String getLine() {
-        return line;
+    public Object getData() {
+        return data;
     }
 
-    public void setLine(String line) {
-        this.line = line;
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public LinkedListNode getNext() {

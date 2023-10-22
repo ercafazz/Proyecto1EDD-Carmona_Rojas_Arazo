@@ -5,8 +5,6 @@
 package EDD;
 
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.SingleGraph;
-
 import Functions.Global;
 import javax.swing.JOptionPane;
 
@@ -152,5 +150,19 @@ public class AdjacencyMatrix
             }
         }
         return graph;
+    }
+    
+    public boolean [][] makeAcopy()
+    {
+        boolean [][] matrix = new boolean[this.vertices][this.vertices];
+        boolean [][] self = this.getMatrix();
+        for (int i = 0; i < this.vertices; i++) 
+        {
+            for (int j = 0; j < this.vertices; j++) 
+            {
+                matrix[i][j] = self[i][j];
+            }
+        }
+        return matrix;
     }
 }

@@ -4,6 +4,8 @@
  */
 package EDD;
 
+import java.awt.Color;
+import java.util.Random;
 import org.graphstream.graph.*;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.Graph;
@@ -263,5 +265,53 @@ public class DoubleLinkedList
             pointer = pointer.getNext();
         }
         return graph;
+    }
+
+    public Graph addItemsWithColors(LinkedList scc) 
+    {            
+        System.setProperty("org.graphstream.ui", "swing");
+        Graph graph = new SingleGraph("Graph");
+        String stylesheet = "node { z-index: 1; text-mode: normal; text-alignment: center; text-background-mode: none; text-size: 15; size: 60px; fill-mode: dyn-plain; text-color: white; } edge { z-index: 0; arrow-shape: arrow; fill-mode: dyn-plain; }";
+        graph.setAttribute("ui.stylesheet", stylesheet);
+        
+        DoubleNode pointer = getHead();
+        while (pointer!=null)
+        {
+            String index = String.valueOf(pointer.getIndex());
+            Node node = graph.addNode(index);
+            String name = pointer.getUser();
+            node.setAttribute("ui.label", name);
+            pointer = pointer.getNext();
+        }
+        
+        LinkedListNode singlePointer = scc.getHead();
+        while (singlePointer!=null)
+        {
+            Color randomColor = generateRandomColor();
+            String rgbColor = String.format("rgb(%d,%d,%d)", randomColor.getRed(), randomColor.getGreen(), randomColor.getBlue());
+            
+            LinkedList l = (LinkedList) singlePointer.getData();
+            LinkedListNode subPointer = l.getHead();
+            
+            while (subPointer!=null)
+            {
+                String id = subPointer.getData().toString();
+                Node node = graph.getNode(id);
+                node.setAttribute("ui.style", "fill-color: " + rgbColor + ";");
+                subPointer=subPointer.getNext();
+            }
+            singlePointer = singlePointer.getNext();
+        }
+        
+        return graph;
+    }
+    
+    public static Color generateRandomColor() 
+    {
+        Random random = new Random();
+        int red = random.nextInt(256);
+        int green = random.nextInt(256);
+        int blue = random.nextInt(256);
+        return new Color(red, green, blue);
     }
 }

@@ -6,7 +6,10 @@ package Interfaces;
 
 import EDD.AdjacencyMatrix;
 import EDD.DoubleLinkedList;
+import EDD.LinkedList;
+import EDD.LinkedListNode;
 import Functions.Global;
+import Functions.Kosaraju;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.Viewer;
 
@@ -39,6 +42,7 @@ public class Ventana2 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        KosarajuButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -73,7 +77,7 @@ public class Ventana2 extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 400, -1));
 
         jButton4.setText("REGRESAR");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +86,15 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 550, -1, -1));
+
+        KosarajuButton.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        KosarajuButton.setText("APLICAR KOSARAJU");
+        KosarajuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KosarajuButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(KosarajuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 410, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 620, 620));
 
@@ -125,6 +138,26 @@ public class Ventana2 extends javax.swing.JFrame {
         Global.setList(null);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void KosarajuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KosarajuButtonActionPerformed
+        
+        //ALGORITMO DE KOSARAJU
+        boolean [][] matrix = Global.getAdjMatrix().makeAcopy();
+        Kosaraju k = new Kosaraju();
+        LinkedList scc = k.getSCC(matrix);
+        
+        //ALGORITMO PARA AGREGAR NODOS AL GRAFO
+        DoubleLinkedList list = Global.getDoubleList();
+        Graph graph = list.addItemsWithColors(scc);
+                
+        //ALGORITMO PARA AGREGAR ARISTAS AL GRAFO
+        AdjacencyMatrix adjMatrix = Global.getAdjMatrix();
+        graph = adjMatrix.addVertexTo(graph);
+        
+        //MOSTRAMOS EL GRADO
+        Viewer viewer = graph.display();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+    }//GEN-LAST:event_KosarajuButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -161,6 +194,7 @@ public class Ventana2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton KosarajuButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
