@@ -8,20 +8,20 @@ import org.graphstream.graph.*;
 import Functions.Global;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ernesto
- */
+//Clase pública AdjacencyMatrix, se encarga de la creación y edición de las matrices 
+//Se encargan de guardar los usuarios y establecer las relaciones, así como de ubicar estos parámetros
 public class AdjacencyMatrix 
 {
     private int vertices;
     private boolean [][] A;
-
+    
+//Constructor de la clase AdjacencyMatrix, recibe un valor int vertices y crea una nueva matriz de tipo boolean
     public AdjacencyMatrix(int vertices) {
         this.vertices = vertices;
         this.A = new boolean[vertices][vertices];
     }
 
+//Getters y Setters del constructor de la clase    
     public int getVertices() {
         return vertices;
     }
@@ -38,6 +38,7 @@ public class AdjacencyMatrix
         this.A = matrix;
     }
     
+//Método AddRelation, recibe dos valores de tipo entero los cuales ubica en la matriz y marca el espacio con un valor de True, retorna vacío
     public void AddRelation(int i, int j)
     {
         if (i >= 0 && i < vertices && j >= 0 && j < vertices) 
@@ -49,6 +50,7 @@ public class AdjacencyMatrix
         }
     }
     
+//Método Show, no recibe parámetros y su función es mostrar la matriz en consola, retorna un print en consola    
     public void Show()
     {
         System.out.println("");
@@ -62,6 +64,7 @@ public class AdjacencyMatrix
         }
     }
     
+//Método AddVertex, no recibe parámetros, crea una nueva matriz con un vértice extra para copiar y pegar la matriz vieja y setea todos los nuevos espacios en falso, retorna vacío    
     public void AddVertex()
     {
         boolean [][]newA = new boolean[this.getVertices()+1][this.getVertices()+1];
@@ -76,6 +79,7 @@ public class AdjacencyMatrix
         vertices++;
     }
 
+//Método FindeRelation, recibe dos usuarios de tipo int los cuales busca en la matriz e identifica si poseen relación, retorna true si la relación existe y false en el caso contrario    
     public boolean FindRelation(int user1, int user2) 
     {
         if (A[user1][user2] == true)
@@ -88,6 +92,7 @@ public class AdjacencyMatrix
         }
     }
     
+//Método Delete, recibe un índice de tipo int con el que ubica al usuario asociado y elimina al mismo junto a las filas y columnas asociadas creando una matriz nueva con tamaño -1, retorna vacío    
     public void Delete(int index)
     {
         boolean [][] newA = new boolean[this.vertices-1][this.vertices-1];
@@ -133,6 +138,7 @@ public class AdjacencyMatrix
         vertices--;
     }
     
+//Método addVertexTo, recibe un gráfico de tipo Graph, declara puntos de origen y destino en la matriz para que se represente en el gráfico, retorna el gráfico    
     public Graph addVertexTo(Graph graph)
     {
         int id = 0;
@@ -152,6 +158,7 @@ public class AdjacencyMatrix
         return graph;
     }
     
+//Método makeACopy, realiza una copia original de la matriz para utilizer en el algoritmo de Kosaraju, retorna la matriz copiada    
     public boolean [][] makeAcopy()
     {
         boolean [][] matrix = new boolean[this.vertices][this.vertices];

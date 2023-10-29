@@ -11,22 +11,23 @@ import javax.swing.JOptionPane;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
-/**
- *
- * @author ernesto
- */
+//Clase pública DoubleLinkedList, se encarga de la creación de la lista doblemente enlazada 
+//además de todas las funciones necesarias en relación con la matriz, 
+//el gráfico y los elementos dentro de la lista
 public class DoubleLinkedList 
 {
     private DoubleNode head;
     private DoubleNode tail;
     private int size;
 
+//Constructor de la clase DoubleLinkedList, no recibe parámetros y settea los valores de cabeza y cola en nulo, también settea el tamaño en 0    
     public DoubleLinkedList() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
+//Getters y Setters del constructor de la clase    
     public DoubleNode getHead() {
         return head;
     }
@@ -51,11 +52,13 @@ public class DoubleLinkedList
         this.size = size;
     }
     
+//Método isEmpty, no recibe parámetros y retorna un valor booleano true si la cabeza es igual a null    
     public boolean isEmpty()
     {
         return getHead()==null;
     }
     
+//Método Show, no recibe parámetros y retorna un print de los elementos asociados a cada nodo de la lista    
     public void Show()
     {
         DoubleNode pointer = getHead();
@@ -66,6 +69,7 @@ public class DoubleLinkedList
         }
     }
     
+//Método getUserIndex, recibe un usuario de tipo string y retorna el índice asociado al usuario, en caso de que el usuario no exista retorna -1    
     public int getUserIndex(String user)
             //RETORNA EL ÍNDICE DEL USUARIO
     {
@@ -82,6 +86,7 @@ public class DoubleLinkedList
         return -1;
     }
     
+//Método InsertUser, recibe un usuario de tipo string y tras checkear que no exista en la base de datos lo agrega y aumenta el tamaño de la lista, retorna vacío    
     public void InsertUser(String user)
     {
         int n = getUserIndex(user);
@@ -109,6 +114,7 @@ public class DoubleLinkedList
         }
     }
     
+//Método DeleteUser, recibe un usuario de tipo string, ubica el usuario ingresado y lo elimina de la lista, después reduce en 1 todos los índices de los nodos siguientes para mantener el orden de la lista y reduce el tamaño, retorna vacío    
     public void DeleteUser(String user)
     {
         int n = getUserIndex(user);
@@ -154,6 +160,7 @@ public class DoubleLinkedList
         }
     }
     
+//Método DeleteFirst, no recibe parámetros y elimina el primer nodo dentro de la lista, reacomoda los índices en la lista y reduce su tamaño, retorna vacío    
     public void DeleteFirst()
     {
         if (isEmpty())
@@ -187,6 +194,7 @@ public class DoubleLinkedList
         }
     }
     
+//Método DeleteLast, no recibe parámetros y elimina el último nodo dentro de la lista, reduce el tamaño y retorna vacío    
     public void DeleteLast()
     {
         if (isEmpty())
@@ -212,11 +220,13 @@ public class DoubleLinkedList
         }
     }
     
+//Método CalculateMatrixVertex, no recibe parámetros y retorna el tamaño de la lista     
     public int CalculateMatrixVertex()
     {
         return this.getSize();
     }
     
+//Método returnName, recibe un índice de tipo int, retorna el usuario asociado al índice ingresado    
     public String returnName(int index)
     {
         DoubleNode pointer = getHead();
@@ -231,6 +241,7 @@ public class DoubleLinkedList
         return null;
     }
     
+//Método InsertAtEnd, recibe un usuario de tipo string y lo inserta al principio de la lista, reacomoda los índices y aumenta el tamaño, retorna vacío    
     public void InsertAtEnd(String line)
     {
         DoubleNode node = new DoubleNode(line);
@@ -247,7 +258,8 @@ public class DoubleLinkedList
         }
         size++;
     }
-
+    
+//Método addItems, no recibe parámetros, añade los elementos de la lista al gráfico y retorna el gráfico
     public Graph addItems() 
     {
         System.setProperty("org.graphstream.ui", "swing");
@@ -266,7 +278,8 @@ public class DoubleLinkedList
         }
         return graph;
     }
-
+    
+//Método addItemsWithColor, recibe un parámetro de tipo LinkedList, se encarga de buscar los componentes fuertemente conectados dentro de la lista simplemente enlanzada y le asigna un color aleatorio a cada grupo de nodos, retorna el gráfico
     public Graph addItemsWithColors(LinkedList scc) 
     {            
         System.setProperty("org.graphstream.ui", "swing");
@@ -306,6 +319,7 @@ public class DoubleLinkedList
         return graph;
     }
     
+//Método generateRandomColor, no recibe parámetros y retorna un color aleatorio    
     public static Color generateRandomColor() 
     {
         Random random = new Random();

@@ -4,10 +4,7 @@
  */
 package EDD;
 
-/**
- *
- * @author ernesto
- */
+//Clase pública DoubleNode, se encarga de crear los nodos doblemente enlazados
 class DoubleNode 
 {
     private DoubleNode next;
@@ -15,13 +12,15 @@ class DoubleNode
     private Integer index;
     private String user;
 
+//Constructor de la clase DoubleNode, recibe un usuario de tipo string que se asigna a user, settea los valores de siguiente, previo e índice en null    
     public DoubleNode(String user) {
         this.next = null;
         this.prev = null;
         this.index = null;
         this.user = user;
     }
-
+    
+//Getters y Setters del constructor de la clase
     public DoubleNode getNext() {
         return next;
     }

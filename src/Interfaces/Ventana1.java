@@ -159,6 +159,8 @@ public class Ventana1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser jFileChooser1 = new JFileChooser();
+        
+        //ESTABLECEMOS UN FILTRO PARA LOS ARCHIVOS QUE SE PUEDEN SELECCIONAR
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
         jFileChooser1.setFileFilter(filter);        
         jFileChooser1.setAcceptAllFileFilterUsed(false);

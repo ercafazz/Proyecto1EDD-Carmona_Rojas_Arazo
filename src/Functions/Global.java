@@ -7,13 +7,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+//Clase pública Global, se encarga de modificar la variables estáticas de doubleList, file y adjMatrix a lo largo del programa
 public class Global 
 {
+    //INICIALIZACIÓN DE LAS VARIABLES
     private static DoubleLinkedList doubleList;
     private static File file;
     private static AdjacencyMatrix adjMatrix;
     
-
+    //Getters y Setters del constructor de la clase
     public static DoubleLinkedList getDoubleList() {
         return doubleList;
     }
@@ -38,6 +40,7 @@ public class Global
         Global.adjMatrix = adjMatrix;
     }
     
+//Método CalculateVertex, recibe un string del archivo txt y calcula el número de vértices de nuestra matriz, retorna el número de vértices    
     public static int CalculateVertex(String filePath)
     {
         int cont = 0;
